@@ -2,6 +2,8 @@
   text-align: center;
   text-align: -webkit-center;
   background-color: #F8C8DC;
+  width: 100%;
+  height: 100%;
 }
 
 .App-header {
