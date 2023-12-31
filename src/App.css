@@ -86,10 +86,6 @@ button:hover{
 
 
 @media only screen and (max-width: 320px) and (max-height: 568px) {
-  body {
-      height: 100vh;
-  }
-
   p {
       font-size: 20px;
   }
@@ -105,10 +101,6 @@ button:hover{
 }
 
 @media only screen and (max-width: 414px) and (max-height: 736px) {
-  body {
-      height: 90vh;
-  }
-
   p {
       font-size: 28px;
   }
