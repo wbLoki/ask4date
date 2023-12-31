@@ -6,9 +6,9 @@
 
 .App-header {
   background-color: #F8C8DC;
-  height: 100vh;
-  width: 100vdh;
-  max-width: fit-content;
+  height: 100svh;
+  width: 100svw;
+  /* max-width: 100lv; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,6 +16,7 @@
   font-size: calc(10px + 2vmin);
   color: white;
   font-family: 'Sevillana', cursive;
+  overflow: clip;
 }
 
 .text-space{

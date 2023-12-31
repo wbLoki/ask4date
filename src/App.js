@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import "./App.css";
 
 function App() {
-  const [name, setName] = useState(null); // This is your date's name, don't change it manually.
+  const [name, setName] = useState(""); // This is your date's name, don't change it manually.
   let ref = useRef(null);
   const myName = "Wail"; // Change your name here.
   const pages = {
