@@ -50,6 +50,13 @@ npm start
 
 The email route was added as `api/send-date-request.js`, which is meant for platforms that support root-level serverless functions such as Vercel. Set the two Resend environment variables in your hosting provider before testing the form submission in production.
 
+### Vercel (Node.js version)
+
+Vercel may reject older Node versions (for example Node 18). This repo pins **Node 24** via `package.json` → `engines.node` and `.nvmrc`.
+
+1. In Vercel: **Project → Settings → General → Node.js Version** → choose **24.x** (if shown).
+2. Commit and push the `engines` / `.nvmrc` changes, then **Redeploy**.
+
 ## Build
 
 Create a production build with:
