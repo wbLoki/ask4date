@@ -1,98 +1,96 @@
-import { useMemo, useState } from "react";
-import "./App.css";
+import { useMemo, useState } from 'react';
+import './App.css';
 
 function App() {
-  const myName = "Wail";
+  const myName = 'Wail';
   const [formData, setFormData] = useState({
-    name: "",
-    planType: "coffee",
-    customPlan: "",
-    freeDate: "",
+    name: '',
+    planType: 'coffee',
+    customPlan: '',
+    freeDate: '',
   });
-  const [error, setError] = useState("");
-  const [status, setStatus] = useState("idle");
+  const [error, setError] = useState('');
+  const [status, setStatus] = useState('idle');
 
   const planOptions = useMemo(
     () => [
       {
-        value: "coffee",
-        label: "Coffee date",
-        description: "Keep it simple and cozy.",
+        value: 'coffee',
+        label: 'Coffee date',
+        description: 'Keep it simple and cozy.',
       },
       {
-        value: "activity",
-        label: "Some activity",
-        description: "Pick something fun to do together.",
+        value: 'activity',
+        label: 'Some activity',
+        description: 'Pick something fun to do together.',
       },
       {
-        value: "dinner",
-        label: "Dinner",
-        description: "A full-on romantic evening.",
+        value: 'dinner',
+        label: 'Dinner',
+        description: 'A full-on romantic evening.',
       },
       {
-        value: "other",
-        label: "Something else",
-        description: "Surprise me with your idea.",
+        value: 'other',
+        label: 'Something else',
+        description: 'Surprise me with your idea.',
       },
     ],
     []
   );
 
   const requiresCustomPlan =
-    formData.planType === "activity" || formData.planType === "other";
+    formData.planType === 'activity' || formData.planType === 'other';
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     const { name, value } = event.target;
 
-    setFormData((current) => ({
+    setFormData(current => ({
       ...current,
       [name]: value,
-      ...(name === "planType" &&
-      value !== "activity" &&
-      value !== "other"
-        ? { customPlan: "" }
+      ...(name === 'planType' && value !== 'activity' && value !== 'other'
+        ? { customPlan: '' }
         : {}),
     }));
 
     if (error) {
-      setError("");
+      setError('');
     }
   };
 
   const getPlanLabel = () => {
     const selected = planOptions.find(
-      (option) => option.value === formData.planType
+      option => option.value === formData.planType
     );
 
-    return selected ? selected.label : "";
+    return selected ? selected.label : '';
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
 
     if (!formData.name.trim()) {
-      setError("Please add your name first.");
+      setError('Please add your name first.');
       return;
     }
 
     if (!formData.freeDate) {
-      setError("Please choose a date that works for you.");
+      setError('Please choose a date that works for you.');
       return;
     }
 
     if (requiresCustomPlan && !formData.customPlan.trim()) {
-      setError("Please tell me what activity or plan you have in mind.");
+      setError('Please tell me what activity or plan you have in mind.');
       return;
     }
 
-    setStatus("submitting");
-    setError("");
+    setStatus('submitting');
+    setError('');
 
     try {
-      const response = await fetch("/api/send-date-request", {
-        method: "POST",
+      const response = await fetch('/api/send-date-request', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           name: formData.name.trim(),
@@ -106,20 +104,20 @@ function App() {
       const payload = await response.json();
 
       if (!response.ok) {
-        throw new Error(payload.error || "Something went wrong.");
+        throw new Error(payload.error || 'Something went wrong.');
       }
 
-      setStatus("success");
+      setStatus('success');
     } catch (submitError) {
-      setStatus("error");
+      setStatus('error');
       setError(
         submitError.message ||
-          "The invite could not be sent right now. Please try again."
+          'The invite could not be sent right now. Please try again.'
       );
     }
   };
 
-  const today = new Date().toISOString().split("T")[0];
+  const today = new Date().toISOString().split('T')[0];
 
   return (
     <div className="App">
@@ -131,15 +129,13 @@ function App() {
               alt="Cute animated illustration"
             />
           </div>
-          {status === "success" ? (
+          {status === 'success' ? (
             <section className="text-space success-panel">
               <p className="eyebrow">Message sent</p>
-              <h1>
-                Thanks, {formData.name || "cutie"}.
-              </h1>
+              <h1>Thanks, {formData.name || 'cutie'}.</h1>
               <p>
-                {myName} got your idea and the day you are free. Time to make
-                it happen.
+                {myName} got your idea and the day you are free. Time to make it
+                happen.
               </p>
             </section>
           ) : (
@@ -166,11 +162,11 @@ function App() {
               <fieldset className="field fieldset">
                 <legend>What sounds best?</legend>
                 <div className="options-grid">
-                  {planOptions.map((option) => (
+                  {planOptions.map(option => (
                     <label
                       key={option.value}
                       className={`option-card${
-                        formData.planType === option.value ? " selected" : ""
+                        formData.planType === option.value ? ' selected' : ''
                       }`}
                     >
                       <input
@@ -192,17 +188,17 @@ function App() {
               {requiresCustomPlan ? (
                 <label className="field">
                   <span>
-                    {formData.planType === "activity"
-                      ? "What activity do you want to do?"
-                      : "Tell us what you have in mind"}
+                    {formData.planType === 'activity'
+                      ? 'What activity do you want to do?'
+                      : 'Tell us what you have in mind'}
                   </span>
                   <input
                     type="text"
                     name="customPlan"
                     placeholder={
-                      formData.planType === "activity"
-                        ? "Mini golf, pottery, bowling..."
-                        : "Share your idea"
+                      formData.planType === 'activity'
+                        ? 'Escape room, karaoke, bowling...'
+                        : 'Share your idea'
                     }
                     value={formData.customPlan}
                     onChange={handleChange}
@@ -222,14 +218,18 @@ function App() {
               </label>
 
               {error ? <p className="message error">{error}</p> : null}
-              {status === "error" && !error ? (
+              {status === 'error' && !error ? (
                 <p className="message error">
                   The invite could not be sent right now. Please try again.
                 </p>
               ) : null}
 
-              <button className="btn submit-btn" type="submit" disabled={status === "submitting"}>
-                {status === "submitting" ? "Sending..." : "Send date details"}
+              <button
+                className="btn submit-btn"
+                type="submit"
+                disabled={status === 'submitting'}
+              >
+                {status === 'submitting' ? 'Sending...' : 'Send date details'}
               </button>
             </form>
           )}
