@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+# Ask4Date
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A playful React app that lets someone pick the kind of date they want, share a free day, and send the details to `wailbouymaj@gmail.com`.
 
-## Available Scripts
+## What it collects
 
-In the project directory, you can run:
+- Their name
+- Their choice of `Coffee date`, `Dinner`, `Some activity`, or `Something else`
+- Extra details when they choose `Some activity` or `Something else`
+- A date they are free
 
-### `npm start`
+## Email delivery
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The frontend submits the form to `api/send-date-request.js`, which sends the email using [Resend](https://resend.com/).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The email goes to:
 
-### `npm test`
+- `wailbouymaj@gmail.com`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Environment variables
 
-### `npm run build`
+Copy `.env.example` and provide real values for:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- `RESEND_API_KEY`
+- `RESEND_FROM_EMAIL`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Example sender:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```env
+RESEND_FROM_EMAIL=Ask4Date <onboarding@resend.dev>
+```
 
-### `npm run eject`
+For production, replace the onboarding address with a sender or domain verified in Resend.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Run locally
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Install dependencies:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+npm install
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Start the React app:
 
-## Learn More
+```bash
+npm start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Deployment note
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The email route was added as `api/send-date-request.js`, which is meant for platforms that support root-level serverless functions such as Vercel. Set the two Resend environment variables in your hosting provider before testing the form submission in production.
 
-### Code Splitting
+## Build
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Create a production build with:
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+npm run build
+```
